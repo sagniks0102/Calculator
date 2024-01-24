@@ -1,1 +1,1 @@
-# Calculator This is a calculator App using HTML, CSS & JavaScript
+# Calculator This is a scientific calculator App using HTML, CSS & JavaScript
