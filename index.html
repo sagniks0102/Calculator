@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+
+        <div class="calculator">
+            <form action="">
+                <div class="display1">
+                    <input type="text" name="" id="display1">
+                </div>
+                <div class="display">
+                    <input type="text" name="" id="display">
+                </div>
+
+                <i type="button" value="Toggle Functions" onclick="toggleFunctions()"
+                    class="fa-solid fa-square-caret-down orangebtn"></i>
+
+
+                <div class="btn hide-functions" id="function-buttons1">
+
+                    <input type="button" value="sin" onclick=" sin() " class="greenbtn">
+                    <input type="button" value="cos" onclick=" cos() " class="greenbtn">
+                    <input type="button" value="tan" onclick=" tan() " class="greenbtn">
+                    <input type="button" value="log" onclick=" log() " class="greenbtn">
+                </div>
+
+                <div class="btn hide-functions" id="function-buttons2">
+                    <button type="button" value="power2" onclick="power() " class="greenbtn"> x<sup>2</sup></button>
+                    <button type="button" value="power3" onclick="cube() " class="greenbtn"> x<sup>3</sup></button>
+                    <input type="button" value="%" onclick="percentage() ">
+                    <input type="button" value="&#8730" onclick="sqrt() ">
+                </div>
+
+                <div class="btn">
+                    <input type="button" value="AC" onclick="display.value = '', display1.value='' " class="redbtn">
+                    <input type="button" value="DE" onclick="display.value = display.value.toString().slice(0,-1)"
+                        class="redbtn">
+                    <input type="button" value="." onclick="display.value += '.' " class="greenbtn">
+                    <input type="button" value="/" onclick="display.value += '/' " class="greenbtn">
+                </div>
+                <div class="btn">
+                    <input type="button" value="7" onclick="display.value += '7' ">
+                    <input type="button" value="8" onclick="display.value += '8' ">
+                    <input type="button" value="9" onclick="display.value += '9' ">
+                    <input type="button" value="*" onclick="display.value += '*' " class="greenbtn">
+                </div>
+                <div class="btn">
+                    <input type="button" value="4" onclick="display.value += '4' ">
+                    <input type="button" value="5" onclick="display.value += '5' ">
+                    <input type="button" value="6" onclick="display.value += '6' ">
+                    <input type="button" value="-" onclick="display.value += '-' " class="greenbtn">
+                </div>
+                <div class="btn">
+                    <input type="button" value="1" onclick="display.value += '1' ">
+                    <input type="button" value="2" onclick="display.value += '2' ">
+                    <input type="button" value="3" onclick="display.value += '3' ">
+                    <input type="button" value="+" onclick="display.value += '+' " class="greenbtn">
+                </div>
+                <div>
+                    <input type="button" value="00" onclick="display.value += '00' ">
+                    <input type="button" value="0" onclick="display.value += '0' ">
+                    <input type="button" value="=" onclick="display1.value=display.value, calculateResult() "
+                        style="width: 102px;" class="equal orangebtn">
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+
+    <script>
+        function sin() {
+            display.value = eval(display.value)
+            display1.value = 'sin' + display.value
+            display.value = Math.sin(display.value * Math.PI / 180)
+        }
+        function cos() {
+            display.value = eval(display.value)
+            display1.value = 'cos' + display.value
+            display.value = Math.cos(display.value * Math.PI / 180)
+        }
+        function tan() {
+            display.value = eval(display.value)
+            display1.value = 'tan' + display.value
+            display.value = Math.tan(display.value * Math.PI / 180)
+        }
+        function power() {
+            display.value = eval(display.value)
+            display1.value = display.value + '^2'
+            display.value = Math.pow(display.value, 2)
+        }
+
+        function cube() {
+            display.value = eval(display.value)
+            display1.value = display.value + '^3'
+            display.value = Math.pow(display.value, 3)
+        }
+        function log() {
+            display.value = eval(display.value)
+            display1.value = 'log' + display.value
+            display.value = Math.log10(display.value)
+        }
+        function percentage() {
+            display.value = eval(display.value)
+            display1.value = display.value + '%'
+            display.value = (display.value / 100)
+        }
+        function sqrt() {
+            display.value = eval(display.value)
+            display1.value = '√' + display.value; // Set the square root symbol
+            display.value = Math.sqrt(display.value);
+        }
+
+
+        function toggleFunctions() {
+            var functionButtons1 = document.getElementById('function-buttons1');
+            var functionButtons2 = document.getElementById('function-buttons2');
+
+            if (functionButtons1.classList.contains('hide-functions')) {
+                functionButtons1.classList.remove('hide-functions');
+                functionButtons1.classList.add('small-buttons');
+            } else {
+                functionButtons1.classList.add('hide-functions');
+                functionButtons1.classList.remove('small-buttons');
+            }
+
+            if (functionButtons2.classList.contains('hide-functions')) {
+                functionButtons2.classList.remove('hide-functions');
+                functionButtons2.classList.add('small-buttons');
+            } else {
+                functionButtons2.classList.add('hide-functions');
+                functionButtons2.classList.remove('small-buttons');
+            }
+        }
+
+        // Add event listener for Enter key on both input fields
+        display.addEventListener('keypress', function (event) {
+            if (event.key === 'Enter') {
+                calculateResult();
+            }
+        });
+
+        display1.addEventListener('keypress', function (event) {
+            if (event.key === 'Enter') {
+                calculateResult();
+            }
+        });
+
+        function calculateResult() {
+            // Your existing calculation logic goes here
+            display1.value = display.value;
+            display.value = eval(display.value);
+        }
+
+
+        // Add event listener for Enter key on both input fields
+        display.addEventListener('keypress', function (event) {
+            if (event.key === 'Backspace') {
+                backdelete();
+            }
+        });
+
+        display1.addEventListener('keypress', function (event) {
+            if (event.key === 'Backspace') {
+                backdelete();
+            }
+        });
+
+        function backdelete() {
+            // Your existing calculation logic goes here
+            display.value = display.value.toString().slice(0,-1);
+        }
+    </script>
+
+    <script src="https://kit.fontawesome.com/c814477bf5.js" crossorigin="anonymous"></script>
+</body>
+
+</html>
